@@ -7,10 +7,16 @@ public class Picture {
 	private String path;
 	private HashMap<HSV, Double> histogram;
 	
+	private File file;
+	
 	public Picture(File file) {
-		
+	this.file = file;	
 	}
 	
+	public File getFile() {
+		return file;
+	}
+
 	public String getPath() {
 		return path;
 	}
