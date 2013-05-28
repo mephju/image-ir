@@ -22,9 +22,9 @@ import de.ovgu.mir.Picture;
 public class Db {
 
 	
-	private static final int NUM_BINS_HUE = 8;
+	private static final int NUM_BINS_HUE = 32;
 	private static final int NUM_BINS_SAT = 8;
-	private static final int NUM_BINS_VAL = 8;
+	private static final int NUM_BINS_VAL = 1;
 
 	private FileFilter filter = new FileFilter();
 	
@@ -62,7 +62,7 @@ public class Db {
 			System.out.println(name);
 	
 			File img 		= new File(name);
-			Picture pic 	= new Picture(img);
+			Picture pic 	= new Picture(img, NUM_BINS_HUE, NUM_BINS_SAT, NUM_BINS_VAL);
 			Mpeg7 mpeg 		= createMpeg7Item(pic);
 			
 			m.marshal(mpeg, new File(dbDir, pic.getFile().getName() + ".xml"));
