@@ -1,7 +1,11 @@
 package de.ovgu.mir;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+
+import javax.imageio.ImageIO;
 
 public class Picture {
 	private String path;
@@ -10,7 +14,16 @@ public class Picture {
 	private File file;
 	
 	public Picture(File file) {
-	this.file = file;	
+		this.file = file;	
+	}
+	
+	private BufferedImage getBufferedImage(File lFile){
+		BufferedImage bi = null;
+		try {
+		    bi = ImageIO.read(lFile);
+		} catch (IOException e) {
+		}
+		return bi;
 	}
 	
 	public File getFile() {
