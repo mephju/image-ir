@@ -2,6 +2,8 @@ package de.ovgu.mir;
 
 import java.io.File;
 
+import de.ovgu.mir.db.Db;
+
 
 /**
  * java -jar MIR_P02.jar [index_folder_path][data_base_path][query_file_path]
@@ -12,10 +14,10 @@ public class Cmd {
 	
 	private static String help = "usage: java -jar MIR_P02.jar [index_folder_path][data_base_path][query_file_path]";
 	
-	private static String indexFolderPath;
-	private static String dataBasePath;
+	private static String indexFilePath;
+	private static String dbFolderPath;
 	private static String queryFilePath;
-	
+	private static String srcFolderPath;
 	
 	
 	public static void main(String[] args) {
@@ -23,11 +25,12 @@ public class Cmd {
 		System.out.println("start");
 		extractParams(args);
 		
-		File d = new File(dataBasePath);
+		File dbFolder = new File(dbFolderPath);
+		File srcFolder = new File(srcFolderPath);
 		try {
-			new Db().createDb(d);
+			new Db().createDb(srcFolder, dbFolder);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 	}
@@ -44,12 +47,13 @@ public class Cmd {
 //			System.out.println(help);
 //			System.exit(0);
 			
-			indexFolderPath = "data_index.idx";
-			dataBasePath = "data";
+			indexFilePath = "data_index.idx";
+			dbFolderPath = "data_base";
 			queryFilePath = "data_abstract_0002.jpg";
+			srcFolderPath = "data_raw";
 		} else {
-			indexFolderPath = args[0];
-			dataBasePath = args[1];
+			indexFilePath = args[0];
+			dbFolderPath = args[1];
 			queryFilePath = args[2];
 		}
 	}
