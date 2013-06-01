@@ -46,10 +46,14 @@ public class Db {
 	 * @param dbDir		This is the directory where data resides and where the xml files are stored.
 	 * @throws JAXBException 
 	 */ 
-	public void createDb(File srcFolder, File dbDir) throws JAXBException {
+	public void createIndex(File srcFolder, File indexFolder) throws JAXBException {
 
-		dbDir.mkdirs();
-		if (dbDir == null || dbDir.isDirectory() == false) {
+		
+		if (srcFolder == null || (!srcFolder.isDirectory())) {
+			throw new RuntimeException("Given path is not a valid directory!");
+		}
+		indexFolder.mkdirs();
+		if (indexFolder == null || (!indexFolder.isDirectory())) {
 			throw new RuntimeException("Given path is not a valid directory!");
 		}
 		
@@ -59,13 +63,17 @@ public class Db {
 		String[] imageNames = srcFolder.list(filter);
 
 		for(String name : imageNames) {
-			System.out.println(name);
+			
 	
-			File img 		= new File(name);
+			File img 		= new File(srcFolder.getAbsolutePath() + "/" + name);
+			
+			System.out.println(name);
+			System.out.println(img.getAbsoluteFile());
+			
 			Picture pic 	= new Picture(img, NUM_BINS_HUE, NUM_BINS_SAT, NUM_BINS_VAL);
 			Mpeg7 mpeg 		= createMpeg7Item(pic);
 			
-			m.marshal(mpeg, new File(dbDir, pic.getFile().getName() + ".xml"));
+			m.marshal(mpeg, new File(indexFolder, pic.getFile().getName() + ".xml"));
 		}
 		
 		System.out.println("done");
@@ -81,12 +89,12 @@ public class Db {
 			mpeg7SCD.setNumOfBitplanesDiscarded(BigInteger.ZERO); 
 			List<BigInteger> coeffs = mpeg7SCD.getCoeff(); 
 			
-//			for(HSV hsv : pic.getHistogram().keySet()) {
-//				double coeff = pic.getHistogram().get(hsv);
-//				coeffs.add(BigInteger.valueOf((long) coeff*255));
-//			} 
+			
+			for(int val : pic.getHistogram()) {
+				coeffs.add(BigInteger.valueOf(val));
+			} 
 
-			coeffs.add(BigInteger.TEN);
+	
 
 			MediaLocatorType mpeg7MediaLocator 	= new MediaLocatorType();
 			StillRegionType mpeg7StillRegion 	= new StillRegionType();

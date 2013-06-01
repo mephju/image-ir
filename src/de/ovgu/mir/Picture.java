@@ -33,6 +33,8 @@ public class Picture {
 		try {
 		    bi = ImageIO.read(file);
 		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		return bi;
 	}
@@ -43,8 +45,13 @@ public class Picture {
      * @param image
      */
     public void extract(BufferedImage image) {
-        if (image.getColorModel().getColorSpace().getType() != ColorSpace.TYPE_RGB)
-            throw new UnsupportedOperationException("Color space not supported. Only RGB.");
+        if (image.getColorModel().getColorSpace().getType() != ColorSpace.TYPE_RGB) {
+        	System.out.println("Color space not supported. Only RGB.");
+        	return;
+            
+        }
+        	
+        
         
         int[] pixel = new int[3];
         WritableRaster raster = image.getRaster();
