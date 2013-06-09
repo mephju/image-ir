@@ -133,6 +133,26 @@ public class Picture {
         hsv[1] = (int) (S * 100);
         hsv[2] = (int) (V * 100);
     }
+    
+    /**
+     * Calculates distance between current pic and given one.
+     * returns -1 if histogram size is different.
+     *
+     * @param picToCompare
+     */
+    public int getDistance(Picture picToCompare) {
+    	
+    	if (picToCompare.getHistogram().length != this.getHistogram().length) {
+    		return -1;
+    	}
+    	
+    	int dist = 0;
+    	
+    	for(int i = 0; i < this.getHistogram().length; i++) {
+    		dist += Math.abs(this.getHistogram()[i] - picToCompare.getHistogram()[i]); 
+    	}
+    	return dist;
+    }
 	
 	public File getFile() {
 		return file;
