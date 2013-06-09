@@ -17,7 +17,7 @@ public class Cmd {
 	private static String indexFilePath;
 	private static String dbFolderPath;
 	private static String queryFilePath;
-	private static String srcFolderPath;
+
 	
 	
 	public static void main(String[] args) {
@@ -26,9 +26,9 @@ public class Cmd {
 		extractParams(args);
 		
 		File dbFolder = new File(dbFolderPath);
-		File srcFolder = new File(srcFolderPath);
+		File indexFolder = new File(indexFilePath);
 		try {
-			new Db().createDb(srcFolder, dbFolder);
+			new Db().createIndex(dbFolder, indexFolder);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,10 +47,9 @@ public class Cmd {
 //			System.out.println(help);
 //			System.exit(0);
 			
-			indexFilePath = "data_index.idx";
-			dbFolderPath = "data_base";
+			indexFilePath = "/home/mephju/tmp/data_idx";
+			dbFolderPath = "/home/mephju/tmp/data_raw";
 			queryFilePath = "data_abstract_0002.jpg";
-			srcFolderPath = "data_raw";
 		} else {
 			indexFilePath = args[0];
 			dbFolderPath = args[1];
