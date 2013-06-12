@@ -197,16 +197,9 @@ public class Indexer {
 		
 		System.out.println("RESULT");
 
-		int count = 0;
 		for(Integer key : map.keySet()) {
 			System.out.println("" + map.get(key).getName() + "		" + key);
-			count++;
-			if(count > 10) {
-				return;
-			}
 		}
-
-
 	}
 	
 	
