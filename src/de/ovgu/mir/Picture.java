@@ -8,6 +8,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * This class is responsible for creating an hsv histogram from an image 
+ * @author anton
+ *
+ */
 public class Picture {
 	private String path;
 	private int[] histogram;
@@ -47,11 +52,8 @@ public class Picture {
     private void extract(BufferedImage image) {
         if (image.getColorModel().getColorSpace().getType() != ColorSpace.TYPE_RGB) {
         	System.out.println("Color space not supported. Only RGB.");
-        	return;
-            
-        }
-        	
-        
+        	return;            
+        }   	
         
         int[] pixel = new int[3];
         WritableRaster raster = image.getRaster();
