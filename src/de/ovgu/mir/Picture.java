@@ -28,7 +28,7 @@ public class Picture {
 		extract(getBufferedImage()); 
 	}
 	
-	public BufferedImage getBufferedImage(){
+	private BufferedImage getBufferedImage(){
 		BufferedImage bi = null;
 		try {
 		    bi = ImageIO.read(file);
@@ -44,7 +44,7 @@ public class Picture {
      *
      * @param image
      */
-    public void extract(BufferedImage image) {
+    private void extract(BufferedImage image) {
         if (image.getColorModel().getColorSpace().getType() != ColorSpace.TYPE_RGB) {
         	System.out.println("Color space not supported. Only RGB.");
         	return;
@@ -92,7 +92,7 @@ public class Picture {
      * @param b
      * @param hsv
      */
-    public static void rgb2hsv(int r, int g, int b, int hsv[]) {
+    private void rgb2hsv(int r, int g, int b, int hsv[]) {
 
         int min;    //Min. value of RGB
         int max;    //Max. value of RGB
